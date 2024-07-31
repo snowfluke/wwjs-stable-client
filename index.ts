@@ -23,8 +23,8 @@ SClient.on("qr", (qr) => {
 
 SClient.on("ready", () => {
   console.log("[LOG] WHATSAPP BOT IS RUNNING");
-  console.log("[LOG] WWJS VERSION: STABLE_WWJS_VERSION");
-  console.log("[LOG] WEB CACHE VERSION: STABLE_WEB_VERSION");
+  console.log(`[LOG] WWJS VERSION: ${STABLE_WWJS_VERSION}`);
+  console.log(`[LOG] WEB CACHE VERSION: ${STABLE_WEB_VERSION}`);
 });
 
 export { SClient, STABLE_WEB_VERSION, STABLE_WWJS_VERSION };
