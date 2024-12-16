@@ -1,38 +1,50 @@
 import { EventEmitter } from "events";
 import qrcode from "qrcode-terminal";
-import { Client, LocalAuth } from "whatsapp-web.js";
+import { AuthStrategy, Client, LocalAuth } from "whatsapp-web.js";
 
-const STABLE_WWJS_VERSION = "1.25.0";
-const STABLE_WEB_VERSION = "2.3000.1012972578-alpha";
-
-const SClient = new Client({
-  authStrategy: new LocalAuth(),
-  webVersion: STABLE_WEB_VERSION,
-  webVersionCache: {
-    type: "remote",
-    remotePath:
-      "https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/{version}.html",
-  },
-  puppeteer: {
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  },
-});
-
-SClient.on("qr", (qr) => {
-  qrcode.generate(qr, { small: true });
-});
-
-const eventEmitter = new EventEmitter();
-
-function onReady(callback: () => void) {
-  eventEmitter.on("ready", callback);
+interface StableClientOptions {
+  authStrategy?: AuthStrategy;
+  onQR?: (qr: string) => void;
 }
 
-SClient.on("ready", () => {
-  console.log("[LOG] WHATSAPP BOT IS RUNNING");
-  console.log(`[LOG] WWJS VERSION: ${STABLE_WWJS_VERSION}`);
-  console.log(`[LOG] WEB CACHE VERSION: ${STABLE_WEB_VERSION}`);
-  eventEmitter.emit("ready");
-});
+const STABLE_WWJS_VERSION = "1.26.0";
+const STABLE_WEB_VERSION = "2.3000.1018890352-alpha";
 
-export { onReady, SClient, STABLE_WEB_VERSION, STABLE_WWJS_VERSION };
+class StableWhatsappClient {
+  client: Client;
+  private eventEmitter = new EventEmitter();
+
+  constructor(options: StableClientOptions) {
+    this.client = new Client({
+      authStrategy: options.authStrategy || new LocalAuth(),
+      webVersion: STABLE_WEB_VERSION,
+      webVersionCache: {
+        type: "remote",
+        remotePath:
+          "https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/{version}.html",
+      },
+      puppeteer: {
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      },
+    });
+
+    this.client.on("qr", options.onQR || this.defaultOnQR);
+
+    this.client.on("ready", () => {
+      console.log("[LOG] WHATSAPP BOT IS RUNNING");
+      console.log(`[LOG] WWJS VERSION: ${STABLE_WWJS_VERSION}`);
+      console.log(`[LOG] WEB CACHE VERSION: ${STABLE_WEB_VERSION}`);
+      this.eventEmitter.emit("ready");
+    });
+  }
+
+  onStableClientReady(callback: () => void) {
+    this.eventEmitter.on("ready", callback);
+  }
+
+  private defaultOnQR(qr: string) {
+    qrcode.generate(qr, { small: true });
+  }
+}
+
+export { STABLE_WEB_VERSION, STABLE_WWJS_VERSION, StableWhatsappClient };
