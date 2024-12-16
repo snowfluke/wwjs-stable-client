@@ -22,7 +22,7 @@ import {
 } from "wwjs-stable-client";
 
 // Create a client instance
-const stableClient = new StableWhatsappClient({
+const stable = new StableWhatsappClient({
   // Optional: custom QR code handler
   onQR: (qr) => {
     console.log("Scan this QR code to authenticate");
@@ -30,17 +30,17 @@ const stableClient = new StableWhatsappClient({
 });
 
 // Listen for client ready event
-stableClient.onStableClientReady(() => {
+stable.onStableClientReady(() => {
   console.log("WhatsApp client is ready!");
 
   // Access the underlying whatsapp-web.js client
-  stableClient.client.on("message", (msg) => {
+  stable.client.on("message", (msg) => {
     console.log("Received message:", msg.body);
   });
 });
 
 // Initialize the client
-stableClient.initialize();
+stable.initialize();
 ```
 
 ## Configuration

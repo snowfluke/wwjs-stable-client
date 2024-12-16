@@ -21,6 +21,12 @@ export interface StableClientOptions {
    * @param qr The QR code string
    */
   onQR?: (qr: string) => void;
+
+  /**
+   * Time to wait for syncing and saving the auth sessions
+   * @default 120000 (2 minutes)
+   */
+  syncTime?: number;
 }
 
 /**
