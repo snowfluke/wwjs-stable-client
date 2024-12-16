@@ -1,6 +1,6 @@
 {
   "name": "wwjs-stable-client",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "whatsapp-web.js stable client version",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

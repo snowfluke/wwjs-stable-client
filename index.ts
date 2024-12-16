@@ -11,7 +11,6 @@ import {
 interface StableClientOptions {
   authStrategy?: AuthStrategy;
   onQR?: (qr: string) => void;
-  syncTime?: number;
 }
 
 const STABLE_WWJS_VERSION = "1.26.0";
@@ -20,11 +19,8 @@ const STABLE_WEB_VERSION = "2.3000.1018890352-alpha";
 class StableWhatsappClient {
   client: Client;
   private eventEmitter = new EventEmitter();
-  private syncTime: number;
 
   constructor(options?: StableClientOptions) {
-    this.syncTime = options?.syncTime || 2 * 60 * 1000;
-
     this.client = new Client({
       authStrategy: options?.authStrategy || new LocalAuth(),
       webVersion: STABLE_WEB_VERSION,
@@ -45,10 +41,6 @@ class StableWhatsappClient {
       console.log(`[LOG] WWJS VERSION: ${STABLE_WWJS_VERSION}`);
       console.log(`[LOG] WEB CACHE VERSION: ${STABLE_WEB_VERSION}`);
 
-      console.log("[LOG] SYNCING SESSION...");
-      await this.sleep(this.syncTime);
-      console.log("[LOG] SYNCED");
-
       this.eventEmitter.emit("ready");
     });
   }
@@ -63,12 +55,6 @@ class StableWhatsappClient {
 
   private defaultOnQR(qr: string) {
     qrcode.generate(qr, { small: true });
-  }
-
-  private sleep(ms: number) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, ms);
-    });
   }
 }
 

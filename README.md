@@ -43,6 +43,10 @@ stable.onStableClientReady(() => {
 stable.initialize();
 ```
 
+## Important Note
+
+Wait at least 2 minutes after the first authentication in order to save the LocalAuth persistently.
+
 ## Configuration
 
 The client uses sensible defaults:
@@ -50,7 +54,6 @@ The client uses sensible defaults:
 - Local authentication strategy
 - Cached web version
 - Puppeteer configuration for compatibility
-- Sync time for waiting time
 
 ### Customizing Authentication
 
