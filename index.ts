@@ -45,13 +45,9 @@ class StableWhatsappClient {
       console.log(`[LOG] WWJS VERSION: ${STABLE_WWJS_VERSION}`);
       console.log(`[LOG] WEB CACHE VERSION: ${STABLE_WEB_VERSION}`);
 
-      const yoctoSpinner: any = await this.importYoctoSpinner();
-      const spinner = yoctoSpinner({
-        text: "[LOG] SYNCING SESSION...",
-      }).start();
-
+      console.log("[LOG] SYNCING SESSION...");
       await this.sleep(this.syncTime);
-      spinner.success("[LOG] SYNCED");
+      console.log("[LOG] SYNCED");
 
       this.eventEmitter.emit("ready");
     });
@@ -67,11 +63,6 @@ class StableWhatsappClient {
 
   private defaultOnQR(qr: string) {
     qrcode.generate(qr, { small: true });
-  }
-
-  private async importYoctoSpinner() {
-    const yoctoSpinner = await import("yocto-spinner");
-    return yoctoSpinner;
   }
 
   private sleep(ms: number) {
