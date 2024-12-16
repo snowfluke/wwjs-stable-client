@@ -50,6 +50,7 @@ The client uses sensible defaults:
 - Local authentication strategy
 - Cached web version
 - Puppeteer configuration for compatibility
+- Sync time for waiting time
 
 ### Customizing Authentication
 
