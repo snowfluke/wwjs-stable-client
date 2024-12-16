@@ -40,7 +40,7 @@ stableClient.onStableClientReady(() => {
 });
 
 // Initialize the client
-stableClient.client.initialize();
+stableClient.initialize();
 ```
 
 ## Configuration

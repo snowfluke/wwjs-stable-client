@@ -56,6 +56,11 @@ export class StableWhatsappClient {
   onStableClientReady(callback: () => void): void;
 
   /**
+   * Initialize the client and start authentication process
+   */
+  initialize(): Promise<void>;
+
+  /**
    * Default QR code generation method
    * @private
    * @param qr QR code string

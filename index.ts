@@ -42,6 +42,10 @@ class StableWhatsappClient {
     this.eventEmitter.on("ready", callback);
   }
 
+  async initialize() {
+    this.client.initialize();
+  }
+
   private defaultOnQR(qr: string) {
     qrcode.generate(qr, { small: true });
   }
