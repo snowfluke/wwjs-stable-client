@@ -1,6 +1,12 @@
 import { EventEmitter } from "events";
 import qrcode from "qrcode-terminal";
-import { AuthStrategy, Client, LocalAuth } from "whatsapp-web.js";
+import {
+  AuthStrategy,
+  Client,
+  LocalAuth,
+  NoAuth,
+  RemoteAuth,
+} from "whatsapp-web.js";
 
 interface StableClientOptions {
   authStrategy?: AuthStrategy;
@@ -14,9 +20,9 @@ class StableWhatsappClient {
   client: Client;
   private eventEmitter = new EventEmitter();
 
-  constructor(options: StableClientOptions) {
+  constructor(options?: StableClientOptions) {
     this.client = new Client({
-      authStrategy: options.authStrategy || new LocalAuth(),
+      authStrategy: options?.authStrategy || new LocalAuth(),
       webVersion: STABLE_WEB_VERSION,
       webVersionCache: {
         type: "remote",
@@ -28,7 +34,7 @@ class StableWhatsappClient {
       },
     });
 
-    this.client.on("qr", options.onQR || this.defaultOnQR);
+    this.client.on("qr", options?.onQR || this.defaultOnQR);
 
     this.client.on("ready", () => {
       console.log("[LOG] WHATSAPP BOT IS RUNNING");
@@ -51,4 +57,11 @@ class StableWhatsappClient {
   }
 }
 
-export { STABLE_WEB_VERSION, STABLE_WWJS_VERSION, StableWhatsappClient };
+export {
+  LocalAuth,
+  NoAuth,
+  RemoteAuth,
+  STABLE_WEB_VERSION,
+  STABLE_WWJS_VERSION,
+  StableWhatsappClient,
+};

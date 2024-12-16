@@ -2,6 +2,11 @@ import { EventEmitter } from "events";
 import { AuthStrategy, Client } from "whatsapp-web.js";
 
 /**
+ * Remote-based authentication
+ */
+export const RemoteAuth;
+
+/**
  * Options for configuring the StableWhatsappClient
  */
 export interface StableClientOptions {
@@ -47,7 +52,7 @@ export class StableWhatsappClient {
    * Constructor for StableWhatsappClient
    * @param options Configuration options for the client
    */
-  constructor(options: StableClientOptions);
+  constructor(options?: StableClientOptions);
 
   /**
    * Register a callback to be executed when the client is ready
