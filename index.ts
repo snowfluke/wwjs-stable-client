@@ -7,7 +7,6 @@ import {
   NoAuth,
   RemoteAuth,
 } from "whatsapp-web.js";
-const ora = require("ora");
 
 interface StableClientOptions {
   authStrategy?: AuthStrategy;
@@ -46,14 +45,14 @@ class StableWhatsappClient {
       console.log(`[LOG] WWJS VERSION: ${STABLE_WWJS_VERSION}`);
       console.log(`[LOG] WEB CACHE VERSION: ${STABLE_WEB_VERSION}`);
 
-      const spinner = ora({
+      const yoctoSpinner: any = await this.importYoctoSpinner();
+      const spinner = yoctoSpinner({
         text: "[LOG] SYNCING SESSION...",
-        spinner: "dots",
-        color: "blue",
       }).start();
 
       await this.sleep(this.syncTime);
-      spinner.succeed("[LOG] SYNCED");
+      spinner.success("[LOG] SYNCED");
+
       this.eventEmitter.emit("ready");
     });
   }
@@ -68,6 +67,11 @@ class StableWhatsappClient {
 
   private defaultOnQR(qr: string) {
     qrcode.generate(qr, { small: true });
+  }
+
+  private async importYoctoSpinner() {
+    const yoctoSpinner = await import("yocto-spinner");
+    return yoctoSpinner;
   }
 
   private sleep(ms: number) {
