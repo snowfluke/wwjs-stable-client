@@ -1,5 +1,4 @@
 import { EventEmitter } from "events";
-import ora from "ora";
 import qrcode from "qrcode-terminal";
 import {
   AuthStrategy,
@@ -8,6 +7,7 @@ import {
   NoAuth,
   RemoteAuth,
 } from "whatsapp-web.js";
+const ora = require("ora");
 
 interface StableClientOptions {
   authStrategy?: AuthStrategy;
