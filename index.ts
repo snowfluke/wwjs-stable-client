@@ -15,8 +15,8 @@ interface StableClientOptions {
   onQR?: (qr: string) => void;
 }
 
-const STABLE_WWJS_VERSION = "1.26.0";
-const STABLE_WEB_VERSION = "2.3000.1018890352-alpha";
+const STABLE_WWJS_VERSION = "1.31.0";
+const STABLE_WEB_VERSION = "2.3000.1024610619-alpha";
 
 class StableWhatsappClient {
   client: Client;
