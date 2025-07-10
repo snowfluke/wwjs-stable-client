@@ -6,6 +6,8 @@ import {
   LocalAuth,
   NoAuth,
   RemoteAuth,
+  type Message,
+  type MessageMedia,
 } from "whatsapp-web.js";
 
 interface StableClientOptions {
@@ -60,6 +62,8 @@ class StableWhatsappClient {
 
 export {
   LocalAuth,
+  Message,
+  MessageMedia,
   NoAuth,
   RemoteAuth,
   STABLE_WEB_VERSION,
